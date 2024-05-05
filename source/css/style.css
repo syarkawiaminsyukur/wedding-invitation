@@ -1,13 +1,14 @@
 :root {
   --pink: #f14e96;
   --bg: #0a0a0a;
-  --shadow: 0 2px 2px rgba(0 0 0 0.5);
+  --shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+  --shadow2: 0 2px 2px rgba(0, 0, 0, 1);
 }
 
 body {
   font-size: 1.2rem;
   font-family: "Work Sans", sans-serif;
-  min-height: 2000px;
+  min-height: 4000px;
 }
 
 .hero::before {
@@ -18,6 +19,8 @@ body {
   width: 100%;
   height: 100%;
   background-image: url("../../img/bg-weeding.jpg");
+  background-size: cover;
+  background-position: center;
   z-index: -1;
   filter: grayscale();
   background-repeat: no-repeat;
@@ -31,7 +34,7 @@ body {
 .hero h1,
 .hero h4,
 .hero p {
-  text-shadow: var(--shadow);
+  text-shadow: var(--shadow2);
 }
 
 .hero h1 {
@@ -48,11 +51,25 @@ body {
 .hero a {
   color: var(--pink);
   background-color: white;
+  box-shadow: var(--shadow);
 }
 
 .hero a:hover {
   background-color: var(--pink);
   color: white;
+}
+
+.mynavbar {
+}
+
+.mynavbar .navbar-brand,
+.mynavbar .offcanvas-title {
+  font-family: "sacramento", cursive;
+  font-size: 3.2rem;
+}
+
+.mynavbar .nav-link {
+  text-transform: uppercase;
 }
 
 /* Responsive */
@@ -75,6 +92,10 @@ body {
   .simply-countdown > .simply-section {
     padding: 60px;
     margin: 5px;
+  }
+  .mynavbar .nav-link {
+    font-size: 2rem;
+    text-align: center;
   }
 }
 
