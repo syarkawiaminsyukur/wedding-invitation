@@ -19,6 +19,9 @@ simplyCountdown(".simply-countdown", {
 
 const stickyTop = document.querySelector(".sticky-top");
 const offcanvas = document.querySelector(".offcanvas");
+const rootElement = document.querySelector(":root");
+const btnLoading = document.querySelector(".btn-loading");
+const btnKirim = document.querySelector(".btn-kirim");
 
 offcanvas.addEventListener("show.bs.offcanvas", function () {
   stickyTop.style.overflow = "visible";
@@ -26,4 +29,52 @@ offcanvas.addEventListener("show.bs.offcanvas", function () {
 
 offcanvas.addEventListener("hidden.bs.offcanvas", function () {
   stickyTop.style.overflow = "hidden";
+});
+
+function disableScroll() {
+  scrollTop = window.scrollY || document.documentElement.scrollTop;
+  scrollLeft = window.scrollX || document.documentElement.scrollLeft;
+
+  window.onscroll = function () {
+    window.scrollTo(screenTop, scrollLeft);
+  };
+
+  rootElement.style.scrollBehavior = "auto";
+}
+
+function enableScroll() {
+  window.onscroll = function () {};
+  rootElement.style.scrollBehavior = "smooth";
+  localStorage.setItem("opened", "true");
+}
+
+disableScroll();
+
+const clickEnableScroll = document.querySelector(".enable-scroll");
+clickEnableScroll.addEventListener("click", function () {
+  enableScroll();
+});
+
+if (localStorage.getItem("opened")) {
+  enableScroll();
+}
+
+window.addEventListener("load", function () {
+  const form = document.getElementById("my-form");
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const data = new FormData(form);
+    const action = e.target.action;
+    btnLoading.classList.toggle("d-none");
+    btnKirim.classList.toggle("d-none");
+    fetch(action, {
+      method: "POST",
+      body: data,
+    }).then(() => {
+      btnLoading.classList.toggle("d-none");
+      btnKirim.classList.toggle("d-none");
+      alert("Konfirmasi kehadiran berhasil terkirim!");
+      form.reset();
+    });
+  });
 });
